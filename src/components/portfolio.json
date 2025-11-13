@@ -1,0 +1,213 @@
+{
+  "name": "Ur Rahman",
+  "role": "Frontend Developer",
+  "location": "Lahore, PK",
+  "summary": "Passionate about building real-world projects and solving problems with code.",
+  "summary1": "I build fast, accessible web apps using React.js and modern tooling.",
+  "socials": [
+    { "label": "GitHub", "href": "https://github.com/attaorrahman" },
+    { "label": "LinkedIn", "href": "https://linkedin.com/in/attaurahman" },
+    { "label": "X", "href": "https://x.com/yourhandle" },
+    { "label": "Email", "href": "mailto:ar416.official@gmail.com" }
+  ],
+  "skills": [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Redux",
+    "RTK Query",
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "REST",
+    "GraphQL",
+    "Vercel",
+    "Git"
+  ],
+"projects": [
+  {
+    "title": "Admin Dashboard",
+    "tagline": "Analytics, tables, auth – React + MUI + RTK Query",
+    "links": {
+      "live": "https://aradmindashboard.netlify.app/",
+      "repo": "https://github.com/yourhandle/admin-dashboard"
+    },
+    "image": "/src/assets/AdminDB.png",
+    "tech": ["React", "MUI", "Redux Toolkit", "Node"]
+  },
+  {
+    "title": "TubeVibe",
+    "tagline": "YouTube-like video streaming app with MUI styling and smooth navigation",
+    "links": {
+      "live": "https://tubevibe.netlify.app/",
+      "repo": "https://github.com/attaorrahman/youtube_clone"
+    },
+    "image": "/src/assets/youtubeClone.png",
+    "tech": ["HTML", "CSS", "React.js", "Material UI"]
+  },
+    {
+    "title": "Social Media Frontend",
+    "tagline": "Responsive social media UI built with modern HTML, CSS, and vanilla JavaScript",
+    "links": {
+      "live": "https://socialmediafront-end.netlify.app/",
+      "repo": "https://github.com/attaorrahman/Social-Media-FrontEnd"
+    },
+    "image": "/src/assets/SocialMEdia.png",
+    "tech": ["HTML", "CSS", "JavaScript"]
+  },
+    {
+    "title": "AA Visa Consultants",
+    "tagline": "Professional visa consultancy website with clean layout and responsive design",
+    "links": {
+      "live": "https://aavisaconsultants.com/",
+      "repo": "https://github.com/attaorrahman/AA-Visa-Consultants"
+    },
+    "image": "/src/assets/AAvisaConsultancy.png",
+    "tech": ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    "title": "FIT Club",
+    "tagline": "Image grid with filters and modal preview",
+    "links": {
+      "live": "https://arfitnessclub.netlify.app/",
+      "repo": "https://github.com/attaorrahman/FitnessClub"
+    },
+    "image": "/src/assets/fitClubIMG.png",
+    "tech": ["React", "Tailwind", "Lightbox"]
+  },
+  {
+    "title": "Portfolio",
+    "tagline": "React.js, dynamic content, blazing fast on Vercel",
+    "links": {
+      "live": "https://attaurahman.netlify.app/",
+      "repo": "https://github.com/yourhandle/portfolio"
+    },
+    "image": "/src/assets/portfolioIMG.png",
+    "tech": ["React.js", "Tailwind", "Framer Motion"]
+  }
+  
+
+
+]
+,
+  "experience": [
+    {
+      "company": "Aleedz Solutions (New Zealand)",
+      "role": "Frontend Developer",
+      "period": "Aug-2024 – Present (Remote)",
+      "bullets": [
+        "Developed and maintained the entire frontend of Aleedz's admin panel using React.js.",
+        "Built dynamic dashboards, data tables, filter systems, dropdowns, modals, and image previews.",
+        "Integrated APIs using Axios and managed global state efficiently with Redux Toolkit for smoother data flow and optimized performance.",
+        "Implemented pagination, search, and sorting functionality for efficient data handling",
+        "Enabled Excel export functionality using XLSX for reporting and data accessibility."
+      ]
+    },
+  
+    {
+      "company": "Voyage Freight Technologies ",
+      "role": "Junior Frontend Developer",
+      "period": "Nov 2023 – Sep 2024",
+      "bullets": [
+        "Developed client and admin-side features using React.js and Next.js.",
+        "Handled API data with Axios.",
+        "Implemented authentication (login/registration), dynamic filters, and UI styling with MUI & CSS.",
+        "Integrated PDF generation via PDF-Kit.",
+        "Designed responsive UI mockups."
+      ]
+    }
+  ],
+  "testimonials":[
+    {
+    "text": "Atta did some great work, very dedicated in getting it right and delivering quality code. Will hire again for sure.",
+    "author": "Alex Tauber"
+  },
+  {
+    "text": "Atta is consistently exceptional! This is the third time I’ve hired him, and once again, he delivered outstanding results.",
+    "author": "Upwork Client"
+  },
+  {
+    "text": "Atta is an amazingly talented guy who fixed a bug within 24 hours that my three developers couldn’t fix in a week.",
+    "author": "Upwork Client"
+  },
+  {
+    "text": "Very thorough developer, capable of solving problems. Will work again with him.",
+    "author": "Didier Levy"
+  },
+  {
+    "text": "Atta provided great devops help to our project. He is skilled and highly recommended!",
+    "author": "Nico Troia"
+  }
+],
+  "education": [
+  {
+    "degree": "Bachelor of Science in Computer Science",
+    "institution": "The Islamia University of Bahawalpur",
+    "period": "2019 – 2023",
+    "Number": "3.09/4.0"
+  },
+  {
+    "degree": "Basic IT Literacy",
+    "institution": "Vocational Training Institute Lodhran",
+    "period": "02 Jul 2018 – 01 Oct 2018",
+    "Number": "70% Grade=B+"
+  },
+  {
+    "degree": "Intermediate",
+    "institution": "Govt. Degree College Syed Nasruddin Shah Gogran",
+    "period": "2017 – 2019",
+    "Number": "811/1100"
+  },
+
+  {
+    "degree": "Matric",
+    "institution": "Govt. High School Gogran",
+    "period": "2013 – 2015",
+    "Number": "630/1100"
+  }
+],
+"certifications": [
+  {
+    "title": "Full Stack Web Development",
+    "issuer": "Coursera",
+    "date": "2023"
+  },
+  {
+    "title": "JavaScript Algorithms and Data Structures",
+    "issuer": "freeCodeCamp",
+    "date": "2022"
+  },
+  {
+    "title": "Microsoft Front-End Developer",
+    "issuer": "Microsoft (Coursera)",
+    "description": "An online non-credit course authorized by Microsoft and offered through Coursera",
+    "date": "Oct 25, 2025"
+  },
+  {
+    "title": "Advanced React Projects and Ecommerce Development",
+    "issuer": "Packt (Coursera)",
+    "description": "An online non-credit course authorized by Packt and offered through Coursera",
+    "date": "Oct 25, 2025"
+  },
+  {
+    "title": "Developing Front-End Apps with React",
+    "issuer": "IBM (Coursera)",
+    "description": "An online non-credit course authorized by IBM and offered through Coursera",
+    "date": "Nov 1, 2025"
+  },
+  {
+    "title": "Introduction to Next.js",
+    "issuer": "Coursera",
+    "description": "An online non-credit course authorized by Coursera and offered through Coursera",
+    "date": "Nov 1, 2025"
+  },
+  {
+    "title": "Computer Hardware and Network Professional",
+    "issuer": "Vocational Training Institute Lodhran",
+    "date": "01 Jan 2017 – 01 Aug 2017",
+    "description": "82% Grade=A"
+  }
+]
+
+}
