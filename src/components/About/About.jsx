@@ -5,7 +5,7 @@ import { FaHtml5, FaCss3Alt, FaBootstrap, FaReact, FaGithub } from "react-icons/
 import { SiTailwindcss, SiJavascript, SiNextdotjs, SiMui,SiFramer  } from "react-icons/si";
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { AiOutlineArrowRight } from 'react-icons/ai'
-import Profile from"../../assets/profile.jpg"
+import Profile from"../../../public/profile.png"
 /* --- tiny badge for skill icons --- */
 const IconBadge = ({ children }) => (
   <span className="w-9 h-9 rounded-md border border-zinc-200 dark:border-zinc-700 grid place-items-center shadow-sm bg-white dark:bg-zinc-800">
@@ -106,7 +106,7 @@ const Container = ({ children }) => (
               <img
                 src={Profile} /* <-- replace with your image */
                 alt="Profile"
-                className="w-full h-[380px] rounded-xl object-cover"
+                className="w-full h-[420px] rounded-xl object-cover"
               />
               {/* floating glow dots like the SS */}
               <motion.div
@@ -141,13 +141,13 @@ const Container = ({ children }) => (
               
               </motion.div>
 
-              <motion.div
+              {/* <motion.div
                 className="absolute -bottom-4 -left-4 h-11 w-11 rounded-full bg-sky-100 grid place-items-center text-lg"
                 animate={{ x: [0, 6, 0] }}
                 transition={{ duration: 3, repeat: Infinity }}
               >
                 ⚡
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           ) : (
             /* --- after drag: compact info card --- */
@@ -177,7 +177,7 @@ const Container = ({ children }) => (
                 💡
               </motion.div> */}
                 <img
-                  src={Profile} /* <-- replace with your image */
+                  src={Profile}
                   alt="Avatar"
                   className="w-40 h-60 rounded-lg object-cover"
                 />

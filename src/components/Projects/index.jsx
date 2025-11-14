@@ -11,7 +11,26 @@ import {
 } from "react-icons/si";
 import { FaReact, FaHtml5, FaCss3Alt, FaBootstrap, FaGithub } from "react-icons/fa";
 import portfolio from "../portfolio.json";
+import AdminDB from '../../../public/AdminDB.png'
+import youtubeClone from '../../../public/youtubeClone.png'
+import SocialMedia from '../../../public/SocialMEdia.png'
+import AAvisaConsultancy from '../../../public/AAvisaConsultancy.png'
+import fitClubIMG from '../../../public/fitClubIMG.png'
+import portfolioIMG from '../../../public/portfolioIMG.png'
+const imageMap = {
 
+  AdminDB,
+
+  youtubeClone,
+
+  SocialMedia,
+
+  AAvisaConsultancy,
+
+  fitClubIMG,
+
+  portfolioIMG,
+}
 const Card = ({ children, className = "" }) => (
   <div
     className={`rounded-2xl border border-black/10 dark:border-white/10 bg-white dark:bg-zinc-900 shadow-sm ${className}`}
@@ -20,21 +39,6 @@ const Card = ({ children, className = "" }) => (
   </div>
 );
 
-// const Button = ({ href, children, onClick, variant = "solid" }) => {
-//   const base =
-//     "inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition active:scale-[.98]";
-//   const styles = {
-//     solid: "bg-black text-white dark:bg-white dark:text-black hover:opacity-90",
-//     outline:
-//       "border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5",
-//   };
-//   const C = href ? "a" : "button";
-//   return (
-//     <C href={href} onClick={onClick} className={`${base} ${styles[variant]}`}>
-//       {children}
-//     </C>
-//   );
-// };
 const Button = ({ href, children, onClick, variant = "solid" }) => {
   const base =
     "inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition active:scale-[.98]";
@@ -43,20 +47,9 @@ const Button = ({ href, children, onClick, variant = "solid" }) => {
     outline:
       "border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5",
   };
-
-  // ✅ detect if it's a link or button
   const C = href ? "a" : "button";
-
   return (
-    <C
-      href={href}
-      onClick={onClick}
-      className={`${base} ${styles[variant]}`}
-      {...(href && {
-        target: "_blank",               // ✅ open in new tab
-        rel: "noopener noreferrer",     // ✅ security best practice
-      })}
-    >
+    <C href={href} onClick={onClick} className={`${base} ${styles[variant]}`}>
       {children}
     </C>
   );
@@ -91,9 +84,12 @@ const Projects = () => {
             <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 dark:hover:from-zinc-800 dark:hover:to-zinc-900">
               <div className="w-full h-40 overflow-hidden relative">
                 <img
-                  src={p.image}
+                  // src={p.image}
+                  src={imageMap[p.image]}
                   alt={p.title}
+                  loading="lazy"
                   className="w-full h-full object-cover transition group-hover:scale-105"
+                  // className="w-full h-full object-cover opacity-0 transition-all duration-700 ease-out"
                 />
 
                 {/* WhatsApp-style overlay */}
@@ -187,9 +183,11 @@ const Projects = () => {
                     whileHover={{ scale: 1.02 }}
                   >
                     <img
-                      src={p.image}
+                      src={imageMap[p.image]}
                       alt={p.title}
+                      loading="lazy"
                       className="w-full h-36 object-cover"
+                      // className="w-full h-full object-cover opacity-0 transition-all duration-700 ease-out"
                     />
                     <div className="p-4">
                       <h4 className="text-lg font-semibold mb-2">{p.title}</h4>

@@ -4,8 +4,6 @@ import AboutInteractiveCard from "../About/About";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import emailjs from "emailjs-com";
-import { useScroll, useInView } from "framer-motion";
-
 // import { motion } from "framer-motion";
 import {
   SiJavascript,
@@ -29,6 +27,8 @@ import Testimonials from "../Testimonials";
 import Education from "../Education";
 import Contact from "../Contact";
 import Experience from "../Experience";
+import "/MRATTAURRAHMAN.pdf";
+
 const iconMap = {
   GitHub: <FaGithub size={20} className="text-gray-800 dark:text-white" />,
   LinkedIn: <FaLinkedin size={20} className="text-blue-600" />,
@@ -108,7 +108,8 @@ export default function PortfolioPage() {
         <Container>
           <nav className="flex h-16 items-center justify-between">
             <a href="#home" className="font-semibold tracking-tight">
-                         Atta <span className="bg-gradient-to-r from-purple-500 via-pink-600 to-purple-500 bg-clip-text text-transparent">
+              
+              Atta <span className="bg-gradient-to-r from-purple-500 via-pink-600 to-purple-500 bg-clip-text text-transparent">
               {portfolio.name}
             </span>
             </a>
@@ -157,25 +158,19 @@ export default function PortfolioPage() {
                     {item.label}
                   </a>
                 ))}
-                <button
+                {/* <button
                   aria-label="Toggle dark mode"
                   onClick={() => setDark((d) => !d)}
                   className="rounded-xl border border-black/10 dark:border-white/10 px-3 py-1 text-sm w-fit"
                 >
-                  {/* {dark ? "Light" : "Dark"} */}
-                </button>
+                  {dark ? "Light" : "Dark"}
+                </button> */}
               </div>
             </div>
           )}
         </Container>
       </header>
-<motion.div
-  className="fixed top-16 left-0 right-0 h-[3px] bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 origin-left z-50"
-  style={{
-    scaleX: useScroll().scrollYProgress, // ties the width of the bar to scroll progress
-    transformOrigin: "0%",
-  }}
-/>
+
       {/* Hero */}
       <Section
         id="home"
@@ -262,7 +257,7 @@ export default function PortfolioPage() {
             </div>
             <Button
               onClick={() =>
-                window.open("/src/assets/MRATTAURRAHMAN.pdf.pdf", "_blank")
+                window.open("/MRATTAURRAHMAN.pdf.pdf", "_blank")
               }
               variant="outline"
               className="px-6 py-3 text-lg"
@@ -326,23 +321,16 @@ export default function PortfolioPage() {
         ))}
       </div>
 
-      {/* <Section id="about" className="bg-white/80 dark:bg-zinc-900">
+      <Section id="about" className="bg-white/80 dark:bg-zinc-900">
         <Container>
           {" "}
+          {/* About */}
           <AboutInteractiveCard />
         </Container>
-      </Section> */}<Section id="about" className="bg-white/80 dark:bg-zinc-900">
-  <Container>
-    <AnimatedSection>
-      <AboutInteractiveCard />
-    </AnimatedSection>
-  </Container>
-</Section>
+      </Section>
       {/* <Section id="testimonials" className="bg-white dark:bg-zinc-900/60">
         <Container> */}
-        
-    <AnimatedSection><Skills /></AnimatedSection>
-      
+      <Skills />
       {/* </Container>
       </Section> */}
 
@@ -350,30 +338,27 @@ export default function PortfolioPage() {
 
       <Section id="projects" className="bg-white dark:bg-zinc-900/60">
         <Container>
-          <AnimatedSection><Projects /></AnimatedSection>
-          
+          <Projects />
         </Container>
       </Section>
       {/* Experience */}
-      <AnimatedSection><Experience /></AnimatedSection>
-      
+      <Experience />
       <Section id="testimonials" className="bg-white dark:bg-zinc-900/60">
         <Container>
-          <AnimatedSection><Testimonials /></AnimatedSection>
+          <Testimonials />
         </Container>
       </Section>
 
       {/* <Section id="education" className="bg-white/90 dark:bg-zinc-900">
         <Container> */}
-     <AnimatedSection><Education /></AnimatedSection> 
+      <Education />
       {/* </Container>
       </Section> */}
 
       {/* Contact */}
       <Section id="contact" className="bg-white dark:bg-zinc-900/60">
         <Container>
-          <AnimatedSection><Contact /></AnimatedSection>
-          
+          <Contact />
         </Container>
       </Section>
       {/* Footer */}
@@ -381,7 +366,7 @@ export default function PortfolioPage() {
         <Container>
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-sm opacity-70">
-              © {year} {portfolio.name}. All rights reserved.
+              © {year} Atta {portfolio.name}. All rights reserved.
             </p>
             <div className="flex flex-wrap gap-3">
               {portfolio.socials.map((s) => (
@@ -389,8 +374,6 @@ export default function PortfolioPage() {
                   key={s.label}
                   href={s.href}
                   className="text-sm hover:opacity-70"
-                  target="_blank"               // ✅ opens in new tab
-            rel="noopener noreferrer" 
                 >
                   {s.label}
                 </a>
@@ -408,18 +391,3 @@ export default function PortfolioPage() {
 // 2) Add to index.html: <html class="scroll-smooth">
 // 3) Enable dark mode via class in tailwind.config.js: darkMode: "class"
 // 4) Deploy to Vercel (optional): push to GitHub, then "New Project" → Import
-const AnimatedSection = ({ children }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 100 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      {children}
-    </motion.div>
-  );
-};

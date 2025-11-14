@@ -33,60 +33,111 @@
       "live": "https://aradmindashboard.netlify.app/",
       "repo": "https://github.com/yourhandle/admin-dashboard"
     },
-    "image": "/src/assets/AdminDB.png",
+    "image": "AdminDB",
+
     "tech": ["React", "MUI", "Redux Toolkit", "Node"]
+
   },
+
   {
+
     "title": "TubeVibe",
+
     "tagline": "YouTube-like video streaming app with MUI styling and smooth navigation",
+
     "links": {
+
       "live": "https://tubevibe.netlify.app/",
+
       "repo": "https://github.com/attaorrahman/youtube_clone"
+
     },
-    "image": "/src/assets/youtubeClone.png",
+
+    "image": "youtubeClone",
+
     "tech": ["HTML", "CSS", "React.js", "Material UI"]
+
   },
+
     {
+
     "title": "Social Media Frontend",
+
     "tagline": "Responsive social media UI built with modern HTML, CSS, and vanilla JavaScript",
+
     "links": {
+
       "live": "https://socialmediafront-end.netlify.app/",
+
       "repo": "https://github.com/attaorrahman/Social-Media-FrontEnd"
+
     },
-    "image": "/src/assets/SocialMEdia.png",
+
+    "image": "SocialMedia",
+
     "tech": ["HTML", "CSS", "JavaScript"]
+
   },
+
     {
+
     "title": "AA Visa Consultants",
+
     "tagline": "Professional visa consultancy website with clean layout and responsive design",
+
     "links": {
+
       "live": "https://aavisaconsultants.com/",
+
       "repo": "https://github.com/attaorrahman/AA-Visa-Consultants"
+
     },
-    "image": "/src/assets/AAvisaConsultancy.png",
+
+    "image": "AAvisaConsultancy",
+
     "tech": ["HTML", "CSS", "JavaScript"]
+
   },
+
   {
+
     "title": "FIT Club",
+
     "tagline": "Image grid with filters and modal preview",
+
     "links": {
+
       "live": "https://arfitnessclub.netlify.app/",
+
       "repo": "https://github.com/attaorrahman/FitnessClub"
+
     },
-    "image": "/src/assets/fitClubIMG.png",
+
+    "image": "fitClubIMG",
+
     "tech": ["React", "Tailwind", "Lightbox"]
+
   },
+
   {
+
     "title": "Portfolio",
+
     "tagline": "React.js, dynamic content, blazing fast on Vercel",
+
     "links": {
+
       "live": "https://attaurahman.netlify.app/",
+
       "repo": "https://github.com/yourhandle/portfolio"
+
     },
-    "image": "/src/assets/portfolioIMG.png",
+
+    "image": "portfolioIMG",
+
     "tech": ["React.js", "Tailwind", "Framer Motion"]
+
   }
-  
 
 
 ]
