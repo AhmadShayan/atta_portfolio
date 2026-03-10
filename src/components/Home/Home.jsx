@@ -1,9 +1,10 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import AboutInteractiveCard from "../About/About";
-import { FaLinkedin, FaTwitter, FaGithub, FaHeart, FaArrowUp } from "react-icons/fa";
+import { FaLinkedin, FaTwitter, FaGithub, FaHeart, FaArrowUp, FaReact } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { HiArrowRight, HiDownload } from "react-icons/hi";
+import { HiArrowRight, HiDownload, HiMenu, HiX, HiSun, HiMoon } from "react-icons/hi";
+import { SiNextdotjs, SiTailwindcss } from "react-icons/si";
 import Skills from "../Skills";
 import Projects from "../Projects";
 import portfolio from "../portfolio.json";
@@ -11,6 +12,7 @@ import Testimonials from "../Testimonials";
 import Education from "../Education";
 import Contact from "../Contact";
 import Experience from "../Experience";
+import Profile from "../../../public/profile.png";
 
 // ---------- Hooks ----------
 function useDarkMode() {
@@ -86,7 +88,7 @@ function AnimatedCounter({ to, suffix = "" }) {
   );
 }
 
-// ---------- Helpers ----------
+// ---------- Config ----------
 const navItems = [
   { id: "home",       label: "Home" },
   { id: "about",      label: "About" },
@@ -108,30 +110,11 @@ const Container = ({ children, className = "" }) => (
   </div>
 );
 
-const Button = ({ href, children, onClick, variant = "solid", className = "" }) => {
-  const base =
-    "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 active:scale-[.97]";
-  const styles = {
-    solid:
-      "btn-glow bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02]",
-    outline:
-      "border border-zinc-300 dark:border-zinc-700 hover:border-purple-400 dark:hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-950/30",
-  };
-  const C = href ? "a" : "button";
-  return (
-    <C href={href} onClick={onClick} className={`${base} ${styles[variant]} ${className}`}>
-      {children}
-    </C>
-  );
-};
-
-const floatingShapeColors = ["#a855f7","#ec4899","#6366f1","#f59e0b","#10b981","#06b6d4"];
-
 const socialIconMap = {
-  GitHub:   <FaGithub size={17} />,
-  LinkedIn: <FaLinkedin size={17} />,
-  X:        <FaTwitter size={17} />,
-  Email:    <MdEmail size={17} />,
+  GitHub:   <FaGithub size={16} />,
+  LinkedIn: <FaLinkedin size={16} />,
+  X:        <FaTwitter size={16} />,
+  Email:    <MdEmail size={16} />,
 };
 
 const socialColorMap = {
@@ -141,7 +124,13 @@ const socialColorMap = {
   Email:    "hover:bg-red-500 hover:text-white hover:border-red-500",
 };
 
-// ---------- Main Component ----------
+const floatingBadges = [
+  { icon: <FaReact className="text-sky-500" />,         label: "React.js",  pos: "top-10 -right-6",   delay: 0   },
+  { icon: <SiNextdotjs className="dark:text-white" />,  label: "Next.js",   pos: "bottom-14 -left-8", delay: 0.6 },
+  { icon: <SiTailwindcss className="text-cyan-500" />,  label: "Tailwind",  pos: "top-1/2 -left-10",  delay: 1.2 },
+];
+
+// ---------- Main ----------
 export default function PortfolioPage() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useDarkMode();
@@ -151,20 +140,6 @@ export default function PortfolioPage() {
   const year = useMemo(() => new Date().getFullYear(), []);
   const typedRole = useTyping(ROLES);
 
-  const floatingShapes = useMemo(
-    () =>
-      Array.from({ length: 8 }).map((_, i) => ({
-        width:  60 + Math.random() * 140,
-        height: 60 + Math.random() * 140,
-        color:  floatingShapeColors[i % floatingShapeColors.length],
-        top:    Math.random() * 100,
-        left:   Math.random() * 100,
-        delay:  i * 1.8,
-      })),
-    []
-  );
-
-  // Scroll progress + back-to-top
   useEffect(() => {
     const handler = () => {
       const total = document.documentElement.scrollHeight - window.innerHeight;
@@ -175,14 +150,9 @@ export default function PortfolioPage() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Active section tracking
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActiveSection(e.target.id); }),
       { rootMargin: "-40% 0px -40% 0px" }
     );
     navItems.forEach(({ id }) => {
@@ -197,10 +167,7 @@ export default function PortfolioPage() {
 
       {/* ── Scroll Progress Bar ── */}
       <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] bg-zinc-200/60 dark:bg-zinc-800/60">
-        <motion.div
-          className="h-full shimmer-line"
-          style={{ width: `${scrollProgress}%` }}
-        />
+        <motion.div className="h-full shimmer-line" style={{ width: `${scrollProgress}%` }} />
       </div>
 
       {/* ── Navbar ── */}
@@ -208,11 +175,9 @@ export default function PortfolioPage() {
         <Container>
           <nav className="flex h-16 items-center justify-between gap-4">
             {/* Brand */}
-            <a href="#home" className="font-bold text-lg tracking-tight shrink-0">
-              Atta{" "}
-              <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 bg-clip-text text-transparent">
-                {portfolio.name}
-              </span>
+            <a href="#home" className="font-extrabold text-lg tracking-tight shrink-0 flex items-center gap-2">
+              <span className="w-7 h-7 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-xs font-black">A</span>
+              <span>Atta <span className="gradient-text-anim">{portfolio.name}</span></span>
             </a>
 
             {/* Desktop Nav */}
@@ -230,7 +195,7 @@ export default function PortfolioPage() {
                   {item.label}
                   {activeSection === item.id && (
                     <motion.span
-                      layoutId="nav-active-pill"
+                      layoutId="nav-pill"
                       className="absolute inset-0 rounded-lg bg-purple-100 dark:bg-purple-950/50 -z-10"
                       transition={{ type: "spring", bounce: 0.25, duration: 0.4 }}
                     />
@@ -240,39 +205,38 @@ export default function PortfolioPage() {
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
-              {/* Dark Mode Toggle */}
+              {/* Dark mode toggle — proper icons */}
               <button
                 aria-label="Toggle dark mode"
                 onClick={() => setDark((d) => !d)}
-                className="w-9 h-9 rounded-xl border border-black/10 dark:border-white/10 flex items-center justify-center text-base hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                className="w-9 h-9 rounded-xl border border-black/10 dark:border-white/10 flex items-center justify-center hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-zinc-600 dark:text-zinc-400"
               >
-                {dark ? "☀️" : "🌙"}
+                {dark ? <HiSun size={17} /> : <HiMoon size={17} />}
               </button>
 
-              {/* Mobile Hamburger */}
+              {/* Mobile hamburger — proper icon */}
               <button
-                className="md:hidden w-9 h-9 rounded-xl border border-black/10 dark:border-white/10 flex items-center justify-center hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                className="md:hidden w-9 h-9 rounded-xl border border-black/10 dark:border-white/10 flex items-center justify-center hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-zinc-600 dark:text-zinc-400"
                 onClick={() => setOpen((o) => !o)}
                 aria-expanded={open}
-                aria-label="Toggle navigation menu"
+                aria-label="Toggle menu"
               >
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.span
-                    key={open ? "close" : "open"}
+                    key={open ? "x" : "menu"}
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
                     transition={{ duration: 0.15 }}
-                    className="text-base leading-none"
                   >
-                    {open ? "✕" : "☰"}
+                    {open ? <HiX size={18} /> : <HiMenu size={18} />}
                   </motion.span>
                 </AnimatePresence>
               </button>
             </div>
           </nav>
 
-          {/* Mobile Menu */}
+          {/* Mobile menu */}
           <AnimatePresence>
             {open && (
               <motion.div
@@ -304,155 +268,188 @@ export default function PortfolioPage() {
         </Container>
       </header>
 
-      {/* ── Hero ── */}
+      {/* ══════════════════════════════════════
+          HERO — split layout (text | photo)
+      ══════════════════════════════════════ */}
       <section
         id="home"
-        className="scroll-mt-20 relative min-h-screen overflow-hidden flex items-center justify-center bg-dot-grid noise-hero"
+        className="scroll-mt-20 relative overflow-hidden flex items-center min-h-[calc(100vh-4rem)] bg-dot-grid noise-hero"
       >
-        {/* Gradient mesh blobs */}
+        {/* Background blobs */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-24 -left-24 w-[560px] h-[560px] bg-purple-400/20 dark:bg-purple-600/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-24 -right-24 w-[560px] h-[560px] bg-pink-400/20 dark:bg-pink-600/10 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-indigo-400/10 dark:bg-indigo-600/10 rounded-full blur-3xl" />
+          <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-purple-400/15 dark:bg-purple-600/8 rounded-full blur-3xl" />
+          <div className="absolute -bottom-32 -right-32 w-[600px] h-[600px] bg-pink-400/15 dark:bg-pink-600/8 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-indigo-400/10 dark:bg-indigo-600/8 rounded-full blur-3xl" />
         </div>
 
-        {/* Floating shapes */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          {floatingShapes.map((shape, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full opacity-[0.06] dark:opacity-[0.09] animate-float"
-              style={{
-                width:  `${shape.width}px`,
-                height: `${shape.height}px`,
-                backgroundColor: shape.color,
-                top:  `${shape.top}%`,
-                left: `${shape.left}%`,
-                animationDelay: `${shape.delay}s`,
-              }}
-            />
-          ))}
-        </div>
+        <Container className="relative z-10 py-16 lg:py-20">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
-        {/* Content */}
-        <Container className="relative z-10 flex flex-col items-center text-center py-28">
-          {/* Available badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-200 dark:border-green-800/60 bg-green-50 dark:bg-green-950/40 px-4 py-1.5 text-sm font-medium text-green-700 dark:text-green-400"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-            </span>
-            Available for opportunities
-          </motion.div>
+            {/* ── Left: text content ── */}
+            <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
 
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1]"
-          >
-            <span className="text-zinc-900 dark:text-white">Hi, I'm </span>
-            <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 bg-clip-text text-transparent">
-              Atta {portfolio.name}
-            </span>
-          </motion.h1>
-
-          {/* Waving hand */}
-          <motion.span
-            initial={{ rotate: 0 }}
-            animate={{ rotate: [0, -20, 0, -20, 0] }}
-            transition={{ duration: 2, repeat: Infinity, repeatDelay: 2.5 }}
-            className="text-5xl mt-3 inline-block select-none"
-            style={{ transformOrigin: "bottom center" }}
-          >
-            👋
-          </motion.span>
-
-          {/* Typing role */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="mt-4 h-9 flex items-center justify-center gap-1 text-xl sm:text-2xl font-semibold text-zinc-500 dark:text-zinc-400"
-          >
-            <span>{typedRole}</span>
-            <span className="inline-block w-[2px] h-6 bg-purple-500 rounded-full cursor-blink" />
-          </motion.div>
-
-          {/* Tagline */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-5 max-w-xl text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed"
-          >
-            {portfolio.summary} {portfolio.summary1}
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="mt-8 flex flex-wrap justify-center gap-3"
-          >
-            <Button
-              onClick={() =>
-                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-              }
-              variant="solid"
-            >
-              View My Work <HiArrowRight size={14} />
-            </Button>
-            <Button
-              onClick={() => window.open("/MRATTAURRAHMAN.pdf", "_blank")}
-              variant="outline"
-            >
-              <HiDownload size={14} /> Download CV
-            </Button>
-          </motion.div>
-
-          {/* Animated Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.75 }}
-            className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-5 w-full max-w-2xl"
-          >
-            {[
-              { value: 10, suffix: "+", label: "Projects Built" },
-              { value: 13, suffix: "+", label: "Technologies" },
-              { value: 2,  suffix: "+", label: "Years Exp." },
-              { value: 5,  suffix: "★", label: "Client Reviews" },
-            ].map(({ value, suffix, label }) => (
-              <div
-                key={label}
-                className="flex flex-col items-center gap-1.5 p-4 rounded-2xl bg-white/70 dark:bg-white/5 border border-black/5 dark:border-white/10 backdrop-blur-sm hover:border-purple-200 dark:hover:border-purple-800 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
+              {/* Available badge */}
+              <motion.div
+                initial={{ opacity: 0, y: -16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-5 inline-flex items-center gap-2 rounded-full border border-green-200 dark:border-green-800/60 bg-green-50 dark:bg-green-950/40 px-4 py-1.5 text-sm font-medium text-green-700 dark:text-green-400"
               >
-                <span className="text-3xl font-extrabold bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 bg-clip-text text-transparent">
-                  <AnimatedCounter to={value} suffix={suffix} />
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
                 </span>
-                <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium text-center">
-                  {label}
-                </span>
+                Available for opportunities
+              </motion.div>
+
+              {/* Name */}
+              <motion.h1
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05]"
+              >
+                <span className="text-zinc-900 dark:text-white block">Hi, I'm</span>
+                <span className="gradient-text-anim">Atta {portfolio.name}</span>
+              </motion.h1>
+
+              {/* Typing role */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="mt-4 h-9 flex items-center justify-center lg:justify-start gap-1 text-xl sm:text-2xl font-semibold text-zinc-500 dark:text-zinc-400"
+              >
+                <span>{typedRole}</span>
+                <span className="inline-block w-[2px] h-6 bg-purple-500 rounded-full cursor-blink" />
+              </motion.div>
+
+              {/* Tagline */}
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="mt-4 max-w-lg text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed"
+              >
+                {portfolio.summary} {portfolio.summary1}
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="mt-7 flex flex-wrap justify-center lg:justify-start gap-3"
+              >
+                <button
+                  onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+                  className="btn-glow inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] transition-all duration-200 active:scale-[.97]"
+                >
+                  View My Work <HiArrowRight size={15} />
+                </button>
+                <button
+                  onClick={() => window.open("/MRATTAURRAHMAN.pdf", "_blank")}
+                  className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold border border-zinc-300 dark:border-zinc-700 hover:border-purple-400 dark:hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-950/30 transition-all duration-200 active:scale-[.97]"
+                >
+                  <HiDownload size={15} /> Download CV
+                </button>
+              </motion.div>
+
+              {/* Stats */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.75 }}
+                className="mt-10 grid grid-cols-4 gap-4 w-full max-w-sm lg:max-w-none"
+              >
+                {[
+                  { value: 10, suffix: "+", label: "Projects" },
+                  { value: 13, suffix: "+", label: "Technologies" },
+                  { value: 2,  suffix: "+", label: "Years Exp." },
+                  { value: 5,  suffix: "★", label: "Reviews" },
+                ].map(({ value, suffix, label }) => (
+                  <div
+                    key={label}
+                    className="flex flex-col items-center gap-1 p-3 rounded-2xl glass-card hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
+                  >
+                    <span className="text-2xl font-black gradient-text-anim">
+                      <AnimatedCounter to={value} suffix={suffix} />
+                    </span>
+                    <span className="text-[10px] text-zinc-500 dark:text-zinc-400 font-semibold text-center uppercase tracking-wide">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* ── Right: profile photo ── */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85, x: 40 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+              className="shrink-0 order-1 lg:order-2"
+            >
+              <div className="relative w-60 h-60 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
+
+                {/* Outer rotating dashed ring */}
+                <div className="absolute inset-0 rounded-full border-2 border-dashed border-purple-400/40 dark:border-purple-500/30 animate-spin-slow" />
+
+                {/* Inner counter-rotating ring */}
+                <div className="absolute inset-4 rounded-full border border-pink-400/30 dark:border-pink-500/20 animate-spin-reverse" />
+
+                {/* Glow ring */}
+                <div className="absolute inset-7 rounded-full ring-4 ring-purple-500/15 dark:ring-purple-400/10 shadow-2xl shadow-purple-500/25" />
+
+                {/* Photo */}
+                <div className="absolute inset-7 rounded-full overflow-hidden">
+                  <img
+                    src={Profile}
+                    alt="Atta Ur Rahman"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+
+                {/* Floating skill badges */}
+                {floatingBadges.map(({ icon, label, pos, delay }) => (
+                  <motion.div
+                    key={label}
+                    className={`absolute ${pos} glass-card rounded-xl px-3 py-2 flex items-center gap-2 shadow-xl z-10`}
+                    animate={{ y: [0, -7, 0] }}
+                    transition={{ duration: 3 + delay, repeat: Infinity, ease: "easeInOut", delay }}
+                  >
+                    <span className="text-base leading-none">{icon}</span>
+                    <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 whitespace-nowrap">
+                      {label}
+                    </span>
+                  </motion.div>
+                ))}
+
+                {/* Experience badge */}
+                <motion.div
+                  className="absolute -bottom-2 right-4 glass-card rounded-xl px-3 py-2 shadow-xl z-10 flex items-center gap-2"
+                  animate={{ y: [0, 5, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <span className="text-base">💼</span>
+                  <div>
+                    <div className="text-[10px] font-black text-zinc-800 dark:text-zinc-200">2+ Years</div>
+                    <div className="text-[9px] text-zinc-500 dark:text-zinc-400 -mt-0.5">Experience</div>
+                  </div>
+                </motion.div>
               </div>
-            ))}
-          </motion.div>
+            </motion.div>
+
+          </div>
 
           {/* Scroll indicator */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.1 }}
+            transition={{ delay: 1.2 }}
             className="mt-16 flex flex-col items-center gap-2 text-zinc-400 dark:text-zinc-600"
           >
-            <span className="text-[10px] tracking-[0.2em] uppercase">Scroll</span>
+            <span className="text-[10px] tracking-[0.2em] uppercase font-medium">Scroll</span>
             <motion.div
               animate={{ y: [0, 6, 0] }}
               transition={{ duration: 1.4, repeat: Infinity }}
@@ -484,9 +481,9 @@ export default function PortfolioPage() {
       <AnimatePresence>
         {showBackToTop && (
           <motion.button
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.7 }}
+            initial={{ opacity: 0, scale: 0.7, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.7, y: 10 }}
             transition={{ duration: 0.2 }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30 flex items-center justify-center hover:scale-110 transition-transform"
@@ -499,9 +496,7 @@ export default function PortfolioPage() {
 
       {/* ── About ── */}
       <Section id="about" className="bg-white/80 dark:bg-zinc-900/80">
-        <Container>
-          <AboutInteractiveCard />
-        </Container>
+        <Container><AboutInteractiveCard /></Container>
       </Section>
 
       {/* ── Skills ── */}
@@ -509,9 +504,7 @@ export default function PortfolioPage() {
 
       {/* ── Projects ── */}
       <Section id="projects" className="bg-white dark:bg-zinc-900/60">
-        <Container>
-          <Projects />
-        </Container>
+        <Container><Projects /></Container>
       </Section>
 
       {/* ── Experience ── */}
@@ -519,9 +512,7 @@ export default function PortfolioPage() {
 
       {/* ── Testimonials ── */}
       <Section id="testimonials" className="bg-zinc-50 dark:bg-zinc-950/50">
-        <Container>
-          <Testimonials />
-        </Container>
+        <Container><Testimonials /></Container>
       </Section>
 
       {/* ── Education ── */}
@@ -529,26 +520,21 @@ export default function PortfolioPage() {
 
       {/* ── Contact ── */}
       <Section id="contact" className="bg-white dark:bg-zinc-900/60">
-        <Container>
-          <Contact />
-        </Container>
+        <Container><Contact /></Container>
       </Section>
 
       {/* ── Pre-footer CTA ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-purple-600 via-pink-600 to-indigo-600 py-24">
-        {/* Background dot grid */}
         <div className="absolute inset-0 bg-dot-grid opacity-10 pointer-events-none" />
-        {/* Blobs */}
-        <div className="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-16 -right-16 w-64 h-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+        <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none" />
 
         <Container className="relative z-10 flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-sm font-medium text-white/90 mb-6"
+            className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-sm font-semibold text-white/90 mb-6"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
@@ -561,8 +547,7 @@ export default function PortfolioPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight max-w-2xl"
+            className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight max-w-2xl"
           >
             Ready to build something{" "}
             <span className="underline decoration-white/40 decoration-wavy underline-offset-4">
@@ -590,7 +575,7 @@ export default function PortfolioPage() {
           >
             <a
               href="#contact"
-              className="btn-glow inline-flex items-center gap-2 px-7 py-3.5 bg-white text-purple-700 font-bold rounded-xl hover:scale-[1.03] transition-all duration-200 shadow-xl shadow-black/20"
+              className="btn-glow inline-flex items-center gap-2 px-7 py-3.5 bg-white text-purple-700 font-black rounded-xl hover:scale-[1.03] transition-all shadow-xl shadow-black/20"
             >
               Get In Touch <HiArrowRight size={16} />
             </a>
@@ -598,7 +583,7 @@ export default function PortfolioPage() {
               href="/MRATTAURRAHMAN.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 text-white border border-white/25 font-bold rounded-xl hover:bg-white/20 transition-colors duration-200"
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 text-white border border-white/25 font-bold rounded-xl hover:bg-white/20 transition-colors"
             >
               <HiDownload size={16} /> Download CV
             </a>
@@ -610,33 +595,28 @@ export default function PortfolioPage() {
       <footer className="border-t border-black/5 dark:border-white/5 py-10 bg-white/50 dark:bg-zinc-950/50">
         <Container>
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-            {/* Brand */}
             <div className="flex flex-col items-center sm:items-start gap-1">
-              <span className="font-bold text-base tracking-tight">
-                Atta{" "}
-                <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 bg-clip-text text-transparent">
-                  {portfolio.name}
-                </span>
+              <span className="font-black text-base tracking-tight flex items-center gap-2">
+                <span className="w-6 h-6 rounded-md bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-[10px] font-black">A</span>
+                Atta <span className="gradient-text-anim">{portfolio.name}</span>
               </span>
-              <p className="text-xs text-zinc-400 dark:text-zinc-500 flex items-center gap-1">
+              <p className="text-xs text-zinc-400 flex items-center gap-1">
                 Crafted with <FaHeart size={10} className="text-pink-500 animate-pulse" /> &amp; React · {year}
               </p>
             </div>
 
-            {/* Nav links */}
             <div className="flex flex-wrap justify-center gap-4">
               {navItems.map((item) => (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
-                  className="text-xs text-zinc-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors font-medium"
+                  className="text-xs text-zinc-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors font-semibold"
                 >
                   {item.label}
                 </a>
               ))}
             </div>
 
-            {/* Social icons */}
             <div className="flex gap-2">
               {portfolio.socials.map((s) => (
                 <a
@@ -645,7 +625,7 @@ export default function PortfolioPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   title={s.label}
-                  className={`w-8 h-8 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-zinc-900 flex items-center justify-center text-zinc-500 dark:text-zinc-400 transition-all duration-200 hover:scale-110 text-sm ${socialColorMap[s.label] ?? ""}`}
+                  className={`w-8 h-8 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-zinc-900 flex items-center justify-center text-zinc-500 dark:text-zinc-400 transition-all duration-200 hover:scale-110 ${socialColorMap[s.label] ?? ""}`}
                 >
                   {socialIconMap[s.label]}
                 </a>
